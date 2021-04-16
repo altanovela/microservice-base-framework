@@ -31,6 +31,7 @@ public class CustomUserController {
         MemberDto param = new MemberDto();
         param.setUsername(member.getUsername());
         param.setEmail(member.getEmail());
+        param.setPhone(member.getPhone());
         param.setStatus("ACTIVE");
         param.setType("BUYER");
         param.setImage(member.getImage());

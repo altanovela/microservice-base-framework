@@ -14,6 +14,9 @@ public interface MemberService {
     @GetMapping(value = "findByEmailOrUsername/{email}/{username}", produces = "application/json")
     public MemberDto findByEmailOrUsername(@PathVariable("email") String email, @PathVariable("username") String username);
 
+    @GetMapping(value = "findByEmailOrUsernameOrPhone/{email}/{username}/{phone}", produces = "application/json")
+    public MemberDto findByEmailOrUsernameOrPhone(@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("phone") String phone);
+
     @GetMapping(value = "findByUsername/{username}", produces = "application/json")
     public MemberDto findByUsername(@PathVariable("username") String username);
     

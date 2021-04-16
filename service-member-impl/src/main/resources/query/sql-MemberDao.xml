@@ -11,7 +11,8 @@
             password as password,
             status   as status,
             type     as type,
-            username as username
+            username as username,
+            phone    as phone
         FROM 
             t_mem_member
         WHERE 
@@ -26,7 +27,8 @@
             password as password,
             status   as status,
             type     as type,
-            username as username
+            username as username,
+            phone    as phone
         FROM 
             t_mem_member
         WHERE 
@@ -41,7 +43,8 @@
             password as password,
             status   as status,
             type     as type,
-            username as username
+            username as username,
+            phone    as phone
         FROM 
             t_mem_member
         WHERE 
@@ -49,6 +52,24 @@
             or username = #{username}
     </select>
 
+    <select id="findByEmailOrUsernameOrPhone" resultType="MemberDto" parameterType="java.lang.String">
+        SELECT
+            id       as id,
+            email    as email,
+            image    as image,
+            password as password,
+            status   as status,
+            type     as type,
+            username as username,
+            phone    as phone
+        FROM 
+            t_mem_member
+        WHERE 
+            email = #{email}
+            or username = #{username}
+            or phone = #{phone}
+    </select>
+    
     <insert id="registerMember" parameterType="MemberDto" useGeneratedKeys="true">
        <selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
         SELECT LAST_INSERT_ID() as id
@@ -59,7 +80,8 @@
                password, 
                status, 
                type, 
-               username
+               username,
+               phone
         )
         VALUES (
                #{email}, 
@@ -67,7 +89,8 @@
                #{password}, 
                #{status}, 
                #{type}, 
-               #{username}
+               #{username},
+               #{phone}
         );
     </insert>
 </mapper>

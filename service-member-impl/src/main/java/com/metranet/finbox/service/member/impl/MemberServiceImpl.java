@@ -23,6 +23,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public MemberDto findByEmailOrUsernameOrPhone(String email, String username, String phone) {
+        return memberDao.findByEmailOrUsernameOrPhone(email, username, phone);
+    }
+    
+    @Override
     public MemberDto findByUsername(String username) {
         return memberDao.findByUsername(username);
     }

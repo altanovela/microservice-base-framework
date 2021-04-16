@@ -13,5 +13,7 @@ public interface MemberDao {
     
     MemberDto findByEmailOrUsername(String email, String username);
     
+    MemberDto findByEmailOrUsernameOrPhone(String email, String username, String phone);
+    
     Long registerMember(MemberDto member);
 }
