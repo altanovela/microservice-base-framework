@@ -38,7 +38,6 @@ Dibuat dengan mempertimbangkan :
 | Spring Cloud Security | core-security | 8102 | Application Server, used as Central Authentication |
 | Discovery Service (Eureka) | core-discovery | 8103 | Application Server, used as Service Colaborator |
 | Application : Member | app-member | 8001 | Application Server, Service Consumer |
-| Application : BPJS (sample) | app-bpjs | 8002 | Application Server, Service Consumer |
 | Service : Member | service-member-api | | Embedded Library, Supporting Service Producer |
 | | service-member-impl | 60101 | Application Server, Service Producer |
 | Library | lib-util | | Embedded Library, Common use Function |
