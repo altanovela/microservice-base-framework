@@ -12,7 +12,7 @@ spring:
     name: core-security
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://10.11.17.37:3306/db_member?serverTimezone=Asia/Jakarta&useLegacyDatetimeCode=false
+    url: jdbc:mysql://host.docker.internal:3306/db_member?serverTimezone=Asia/Jakarta&useLegacyDatetimeCode=false
     username: umember
     password: 123qwe
 
