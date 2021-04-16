@@ -61,7 +61,7 @@ Client Secret : rahasia12345
 ## Build & Run
 ```
 1. Git Clone
-$ git clone http://gitlab.playcourt.id/riobastian/spring-cloud-architecture.git
+$ git clone https://github.com/altanovela/microservice-baseframework.git
 
 2. Compile Supported Library 
 $ cd ${PROJECT_BASE}/lib-util/
@@ -104,8 +104,10 @@ curl --location --request POST "http://localhost:8101/auth/member/register"
     \"password\": \"Password123\",
     \"image\": \"http://here.iam/rio.bastian.jpeg\"
 ```
-*Notes ```Authorzation Basic is generated as follows Base64Encoder.encode(client-id:client-secret)```
-
+*Notes 
+```
+Authorzation Basic is generated as follows Base64Encoder.encode(client-id:client-secret)
+```
 Response :
 ```
 {
@@ -119,6 +121,7 @@ Response :
   "phone":"082124334111"
 }
 ```
+
 #### Login and Get Token
 cUrl Request : 
 ```
@@ -134,7 +137,6 @@ curl --location --request POST "http://localhost:8101/oauth/token" \
 Authorzation Basic is generated as follows Base64Encoder.encode(client-id:client-secret)
 username attribute could be fill by username, email or phone number
 ```
-
 Response :
 ```
 {
@@ -146,6 +148,7 @@ Response :
   "iss":"finbox-sec"
 }
 ```
+
 #### Get Member Info (based on Token)
 cUrl Request :
 ```
