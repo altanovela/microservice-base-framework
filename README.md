@@ -45,15 +45,16 @@ Dibuat dengan mempertimbangkan :
 
 ## Pre Preparation
 ```
-Created Database & Assign User:
-mysql> create database db_member;
-mysql> create user 'umember'@'%' identified with mysql_native_password by '123qwe';
-mysql> grant all privileges on db_member.* to 'umember'@'%' with grant option;
-mysql> flush privileges;
+1. Created Database & Assign User:
+   mysql> create database db_member;
+   mysql> create user 'umember'@'%' identified with mysql_native_password by '123qwe';
+   mysql> grant all privileges on db_member.* to 'umember'@'%' with grant option;
+   mysql> flush privileges;
 
-Run Application and Insert Initialize Client Data :
-INSERT INTO db_member.oauth_client_details (client_id, access_token_validity, additional_information, authorities, autoapprove, client_secret, authorized_grant_types, web_server_redirect_uri, refresh_token_validity, resource_ids, `scope`) VALUES ('mobile-apps', 900, NULL, 'password,refresh_token,client_credentials,authorization_code', NULL, '$2y$12$qAD6hUSq9FOuvum4XKCBf.5o3/ZtOniJ4pYocfnZoLRvFVtrKRjCu', NULL, NULL, 2592000, NULL, 'read,write');
+2. Run Application and Insert Initialize Client Data :
+   INSERT INTO db_member.oauth_client_details (client_id, access_token_validity, additional_information, authorities, autoapprove, client_secret, authorized_grant_types, web_server_redirect_uri, refresh_token_validity, resource_ids, `scope`) VALUES ('mobile-apps', 900, NULL, 'password,refresh_token,client_credentials,authorization_code', NULL, '$2y$12$qAD6hUSq9FOuvum4XKCBf.5o3/ZtOniJ4pYocfnZoLRvFVtrKRjCu', NULL, NULL, 2592000, NULL, 'read,write');
 
+Notes
 Client Id     : mobile-apps
 Client Secret : rahasia12345
 ```
