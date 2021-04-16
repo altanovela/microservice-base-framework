@@ -28,7 +28,7 @@ Dibuat dengan mempertimbangkan :
 - MyBatis
 
 ## Architecture Diagram
-![](https://gitlab.playcourt.id/riobastian/spring-cloud-architecture/-/raw/master/.res/architecture-diagram.jpg)
+![](https://raw.githubusercontent.com/altanovela/microservice-baseframework/master/.res/architecture-diagram.jpg)
 
 ## Package Structure
 
