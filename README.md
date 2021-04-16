@@ -28,7 +28,7 @@ Dibuat dengan mempertimbangkan :
 - MyBatis
 
 ## Architecture Diagram
-![](https://gitlab.playcourt.id/riobastian/spring-cloud-architecture/-/raw/master/.res/architecture-diagram.jpg)
+![](https://raw.githubusercontent.com/altanovela/microservice-baseframework/master/.res/architecture-diagram.jpg)
 
 ## Package Structure
 
@@ -38,22 +38,22 @@ Dibuat dengan mempertimbangkan :
 | Spring Cloud Security | core-security | 8102 | Application Server, used as Central Authentication |
 | Discovery Service (Eureka) | core-discovery | 8103 | Application Server, used as Service Colaborator |
 | Application : Member | app-member | 8001 | Application Server, Service Consumer |
-| Application : BPJS (sample) | app-bpjs | 8002 | Application Server, Service Consumer |
 | Service : Member | service-member-api | | Embedded Library, Supporting Service Producer |
 | | service-member-impl | 60101 | Application Server, Service Producer |
 | Library | lib-util | | Embedded Library, Common use Function |
 
 ## Pre Preparation
 ```
-Created Database & Assign User:
-mysql> create database db_member;
-mysql> create user 'umember'@'%' identified with mysql_native_password by '123qwe';
-mysql> grant all privileges on db_member.* to 'umember'@'%' with grant option;
-mysql> flush privileges;
+1. Created Database & Assign User:
+   mysql> create database db_member;
+   mysql> create user 'umember'@'%' identified with mysql_native_password by '123qwe';
+   mysql> grant all privileges on db_member.* to 'umember'@'%' with grant option;
+   mysql> flush privileges;
 
-Run Application and Insert Initialize Client Data :
-INSERT INTO db_member.oauth_client_details (client_id, access_token_validity, additional_information, authorities, autoapprove, client_secret, authorized_grant_types, web_server_redirect_uri, refresh_token_validity, resource_ids, `scope`) VALUES ('mobile-apps', 900, NULL, 'password,refresh_token,client_credentials,authorization_code', NULL, '$2y$12$qAD6hUSq9FOuvum4XKCBf.5o3/ZtOniJ4pYocfnZoLRvFVtrKRjCu', NULL, NULL, 2592000, NULL, 'read,write');
+2. Run Application and Insert Initialize Client Data :
+   INSERT INTO db_member.oauth_client_details (client_id, access_token_validity, additional_information, authorities, autoapprove, client_secret, authorized_grant_types, web_server_redirect_uri, refresh_token_validity, resource_ids, `scope`) VALUES ('mobile-apps', 900, NULL, 'password,refresh_token,client_credentials,authorization_code', NULL, '$2y$12$qAD6hUSq9FOuvum4XKCBf.5o3/ZtOniJ4pYocfnZoLRvFVtrKRjCu', NULL, NULL, 2592000, NULL, 'read,write');
 
+Notes
 Client Id     : mobile-apps
 Client Secret : rahasia12345
 ```
@@ -92,85 +92,77 @@ $ mvn -e clean spring-boot:run
 
 ## Sample API
 #### Register New Member
-Request URL (POST) : 
+cUrl Request :
 ```
-http://localhost:8101/auth/member/register
+curl --location --request POST "http://localhost:8101/auth/member/register" 
+--header "Authorization: Basic bW9iaWxlLWFwcHM6cmFoYXNpYTEyMzQ1" 
+--header "Content-Type: application/json" 
+--data-raw "{
+    \"phone\": \"082124334111\",
+    \"email\": \"rio.bastian@metranet.co.id\",
+    \"username\": \"rio.bastian\",
+    \"password\": \"Password123\",
+    \"image\": \"http://here.iam/rio.bastian.jpeg\"
 ```
-Request Header :
-```
-Authorization: Basic ZmluYm94LW1vYmlsZS1hcHBzOnBhc3N3b3Jk
-Content-Type: application/json
-```
-*Notes ```Basic Base64Encoder.encode(client-id:client-secret)```
+*Notes ```Authorzation Basic is generated as follows Base64Encoder.encode(client-id:client-secret)```
 
-Request Body :
-```
-{
-	"email":"rio.bastian@metranet.co.id",
-	"username":"rio.bastian",
-	"password":"Password123",
-	"image":"http://here.iam/rio.bastian.jpeg"
-}
-```
 Response :
 ```
 {
-    "id": 43,
-    "username": "rio.bastian",
-    "email": "rio.bastian@metranet.co.id",
-    "password": "$2a$10$zPLVUKhZvUVfApUbaAsY5euArKCYwzfoTxAJ.bkXyJp5Rl8iCfSzW",
-    "type": "BUYER",
-    "image": "http://here.iam/rio.bastian.jpeg",
-    "status": "ACTIVE"
+  "id":6,
+  "username":"rio.bastian",
+  "email":"rio.bastian@metranet.co.id", 
+  "password":"$2a$10$UiMlTv.YTMBFfxnAnSqFwueTCtVsnbmiD.u/Wmao.c6mgBAoZVWqy", 
+  "type":"BUYER", 
+  "image":"http://here.iam/rio.bastian.jpeg", 
+  "status":"ACTIVE", 
+  "phone":"082124334111"
 }
 ```
 #### Login and Get Token
-Request URL (POST) : 
+cUrl Request : 
 ```
-http://localhost:8101/oauth/token
+curl --location --request POST "http://localhost:8101/oauth/token" \
+--header "Authorization: Basic bW9iaWxlLWFwcHM6cmFoYXNpYTEyMzQ1" \
+--header "Content-Type: application/x-www-form-urlencoded" \
+--data-urlencode "grant_type=password" \
+--data-urlencode "username=082124334111" \
+--data-urlencode "password=Password123"
 ```
-Request Header :
+*Notes 
 ```
-Authorization: Basic ZmluYm94LW1vYmlsZS1hcHBzOnBhc3N3b3Jk
-Content-Type: application/x-www-form-urlencoded
+Authorzation Basic is generated as follows Base64Encoder.encode(client-id:client-secret)
+username attribute could be fill by username, email or phone number
 ```
-*Notes ```Basic Base64Encoder.encode(client-id:client-secret)```
 
-Request Body :
-```
-grant_type=password
-username=rio.bastian
-password=Password123
-```
 Response :
 ```
 {
-    "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJmaW5ib3gtc2VjIiwiZXhwIjoxNTk5NTg2Mjc0LCJ1c2VyX25hbWUiOiJyaW8uYmFzdGlhbiIsImF1dGhvcml0aWVzIjpbIkJVWUVSIl0sImNsaWVudF9pZCI6ImZpbmJveC1tb2JpbGUtYXBwcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.sMMGxbRwzkdN8ZbY52c2CFH9ShIBStfTVlCQ69UrgPiiykpLS_BubXF1TVbepklt5agLJSZZ-7nFvPqQTCa_crxpX2wobJ6VL75feD-H_Md24tu6lVec2S-0eYIL360p7GGU0bMSAQCmZx7AsnVXdWnAkZkfG1JZoVm3xpn8rUVBZEAjEmBDj3NyenhjQG74RGB6szQWaAlmq32iEQvR7clHIPVSu87Jh06DuwKPASfCQiPC7YTxj67sXcZObv2e0kIvTdSRf5uFBwUdKuvhY3CguFXYCduS7R_4P5KjnbAE-P3LkaC3BuP_1kOqA2VGcyK7Y8KLb_fIw1gqTI02eA",
-    "token_type": "bearer",
-    "expires_in": 19999,
-    "scope": "read write",
-    "iss": "finbox-sec"
+  "access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJmaW5ib3gtc2VjIiwiZXhwIjoxNjE4NTgyMjcyLCJ1c2VyX25hbWUiOiJyaW8uYmFzdGlhbiIsImF1dGhvcml0aWVzIjpbIkJVWUVSIl0sImNsaWVudF9pZCI6Im1vYmlsZS1hcHBzIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.QvTsJVICMjp8hlwIgVQemPAv2Y56WWR2Lk6MYYiwGioLEszb3zbqXaZkpZJ4kfYQjNzuKzfwOVqwx55HqiL2dsHhIcFTrFwe273AJgid6G6ECPPZyB8dPkrnB6cuowDKCM6Z4DTt8TMrlPFIsub1Na9TyGPyYmMgM53oLm9D7mIPlzv6-LLZ8Oc_EVdSjhj-mzC13d_UtxlWzNB4yqX9WampsxBwmCztPqeZKeAgTdIAU2INhP8jUi8ilnxl_4ctcQ4T3KJGpX8lfbYOLIgVSPq_x2EtYBC3TODTrsrLiJGod8gc-1AIop7BC493u6-uDV4K2r3t_Cy_IggT60ARMA",
+  "token_type":"bearer",
+  "refresh_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJmaW5ib3gtc2VjIiwiZXhwIjoxNjIxMTczMzcyLCJ1c2VyX25hbWUiOiJyaW8uYmFzdGlhbiIsImF1dGhvcml0aWVzIjpbIkJVWUVSIl0sImNsaWVudF9pZCI6Im1vYmlsZS1hcHBzIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.PSU3hLAAhYOYZ2AzmDrgDWLyvn1Le4Swyls8Q-imDbQKBohiNMPKPRzYhFEgBYuKQ3MIgoTw2R0j_BDWpdq7Stf_whjtt4DtDQAswA8NjqRtMBNqXpJPEmYXwK9nbVFQAIqs6cAyLPrwoI9ZYepSAg4MyfpuKnLBLZh5Pa9agVW-cTn-I2hShHhbqVG3bDIfJcx5svTI5eY5FkfDpSXPz8-O13y7z246oHcOs2fl8o2AelEbdTEF4BiUoLwy8YGoU1Xn0kxkhUw3QhSYHAnW98bwfNa6W2TbWcnC7JhLssLW-CGwWeTWivptUodUV_1_tgyypTZyE3bFUU_vForlhA",
+  "expires_in":899,
+  "scope":"read write",
+  "iss":"finbox-sec"
 }
 ```
 #### Get Member Info (based on Token)
-Request URL (GET) : 
+cUrl Request :
 ```
-http://localhost:8101/api/member/info
-```
-Request Header :
-```
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJmaW5ib3gtc2VjIiwiZXhwIjoxNTk5NTg2Mjc0LCJ1c2VyX25hbWUiOiJyaW8uYmFzdGlhbiIsImF1dGhvcml0aWVzIjpbIkJVWUVSIl0sImNsaWVudF9pZCI6ImZpbmJveC1tb2JpbGUtYXBwcyIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.sMMGxbRwzkdN8ZbY52c2CFH9ShIBStfTVlCQ69UrgPiiykpLS_BubXF1TVbepklt5agLJSZZ-7nFvPqQTCa_crxpX2wobJ6VL75feD-H_Md24tu6lVec2S-0eYIL360p7GGU0bMSAQCmZx7AsnVXdWnAkZkfG1JZoVm3xpn8rUVBZEAjEmBDj3NyenhjQG74RGB6szQWaAlmq32iEQvR7clHIPVSu87Jh06DuwKPASfCQiPC7YTxj67sXcZObv2e0kIvTdSRf5uFBwUdKuvhY3CguFXYCduS7R_4P5KjnbAE-P3LkaC3BuP_1kOqA2VGcyK7Y8KLb_fIw1gqTI02eA
+curl --location --request GET "http://localhost:8101/api/member/info" \
+--header "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJmaW5ib3gtc2VjIiwiZXhwIjoxNjE4NTgyMjcyLCJ1c2VyX25hbWUiOiJyaW8uYmFzdGlhbiIsImF1dGhvcml0aWVzIjpbIkJVWUVSIl0sImNsaWVudF9pZCI6Im1vYmlsZS1hcHBzIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.QvTsJVICMjp8hlwIgVQemPAv2Y56WWR2Lk6MYYiwGioLEszb3zbqXaZkpZJ4kfYQjNzuKzfwOVqwx55HqiL2dsHhIcFTrFwe273AJgid6G6ECPPZyB8dPkrnB6cuowDKCM6Z4DTt8TMrlPFIsub1Na9TyGPyYmMgM53oLm9D7mIPlzv6-LLZ8Oc_EVdSjhj-mzC13d_UtxlWzNB4yqX9WampsxBwmCztPqeZKeAgTdIAU2INhP8jUi8ilnxl_4ctcQ4T3KJGpX8lfbYOLIgVSPq_x2EtYBC3TODTrsrLiJGod8gc-1AIop7BC493u6-uDV4K2r3t_Cy_IggT60ARMA"
 ```
 Response :
 ```
 {
-    "id": 43,
+    "id": 6,
     "username": "rio.bastian",
     "email": "rio.bastian@metranet.co.id",
-    "password": "$2a$10$zPLVUKhZvUVfApUbaAsY5euArKCYwzfoTxAJ.bkXyJp5Rl8iCfSzW",
+    "password": "$2a$10$UiMlTv.YTMBFfxnAnSqFwueTCtVsnbmiD.u/Wmao.c6mgBAoZVWqy",
     "type": "BUYER",
     "image": "http://here.iam/rio.bastian.jpeg",
-    "status": "ACTIVE"
+    "status": "ACTIVE",
+    "phone": "082124334111"
 }
 ```
 
