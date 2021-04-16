@@ -1,0 +1,32 @@
+# Server
+server:
+  port: 8102
+
+# Logging
+logging:
+  config: classpath:log/logback-local.xml
+    
+# Spring Application
+spring:
+  application:
+    name: core-security
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.11.17.37:3306/db_member?serverTimezone=Asia/Jakarta&useLegacyDatetimeCode=false
+    username: umember
+    password: 123qwe
+
+# Finbox Security
+finbox: 
+  keystore:
+    password: P@ssw0rd1!
+    alias: finbox-sec
+    file: ssl/finbox-sec.jks
+    id: finbox-sec-key-id
+
+# Eureka Discovery Client Consumer
+eureka:
+  client:
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8103/eureka

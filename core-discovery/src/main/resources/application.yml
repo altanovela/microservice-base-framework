@@ -1,0 +1,22 @@
+# Server
+server: 
+  port: 8103
+
+# Logging
+logging:
+  config: classpath:log/logback-local.xml
+
+# Spring Application
+spring:
+  application:
+    name: core-discovery
+
+# Eureka Discovery Server
+eureka:
+  server:
+    wait-time-in-ms-when-sync-empty: 0
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://localhost:8103/eureka

@@ -1,0 +1,19 @@
+# Server
+server:
+  port: 8001
+
+# Logging
+logging:
+  config: classpath:log/logback-local.xml
+  
+# Spring Application
+spring:
+  application:
+    name: app-member
+    
+# Eureka Discovery Client Consumer
+eureka:
+  client:
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8103/eureka

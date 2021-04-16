@@ -1,0 +1,35 @@
+# Server
+server:
+  port: 60101
+
+# Logging
+logging:
+  config: classpath:log/logback-local.xml
+  
+# Spring Config, Persistance, Database
+spring:
+  application:
+    name: service-member
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://host.docker.internal:3306/db_member?serverTimezone=Asia/Jakarta&useLegacyDatetimeCode=false
+    username: umember
+    password: 123qwe
+  jpa: 
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+
+# Data Access Object
+mybatis:
+  mapper-locations: classpath*:/query/sql-*.xml
+  type-aliases-package: com.metranet.finbox.service.member.dto
+  
+# Eureka Discovery Client Producer
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8103/eureka
