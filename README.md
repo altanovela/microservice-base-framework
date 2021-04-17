@@ -30,7 +30,7 @@ Dibuat dengan mempertimbangkan :
 ## Architecture Diagram
 ![](https://raw.githubusercontent.com/altanovela/microservice-baseframework/master/.res/architecture-diagram.jpg)
 
-## Package Structure
+## Project Structure
 
 | Application | Project Name | Port | Notes |
 | ------------ | ------------ | ------------ | ------------ |
@@ -39,7 +39,7 @@ Dibuat dengan mempertimbangkan :
 | Discovery Service (Eureka) | core-discovery | 8103 | Application Server, used as Service Colaborator |
 | Application : Member | app-member | 8001 | Application Server, Service Consumer |
 | Service : Member | service-member-api | | Embedded Library, Supporting Service Producer |
-| | service-member-impl | 60101 | Application Server, Service Producer |
+|| service-member-impl | 60101 | Application Server, Service Producer |
 | Library | lib-util | | Embedded Library, Common use Function |
 
 ## Pre Preparation
