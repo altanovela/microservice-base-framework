@@ -39,4 +39,12 @@ public class MemberServiceImpl implements MemberService {
         }
         return -1L;
     }
+    
+    @Override
+    public Long updateMember(MemberDto member) {
+    	if(memberDao.updateMember(member) > 0) {
+            return member.getId();
+        }
+        return -1L;
+    }
 }

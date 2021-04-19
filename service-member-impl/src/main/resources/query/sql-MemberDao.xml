@@ -93,4 +93,22 @@
                #{phone}
         );
     </insert>
+    
+    <insert id="updateMember" parameterType="MemberDto" useGeneratedKeys="true">
+        UPDATE 
+        	t_mem_member
+        SET 
+        	<if test="email != null and email != ''">
+        	email = #{email}, 
+        	</if>
+        	<if test="image != null and image != ''">
+        	image = #{image}, 
+        	</if>
+        	<if test="phone != null and phone != ''">
+        	phone = #{phone},
+        	</if>
+        	id = id
+        WHERE
+            id = #{id}
+    </insert>
 </mapper>

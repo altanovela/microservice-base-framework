@@ -23,4 +23,6 @@ public interface MemberService {
     @PostMapping(value = "registerMember", consumes = "application/json")
     public Long registerMember(@RequestBody MemberDto member);
     
+    @PostMapping(value = "updateMember", consumes = "application/json")
+    public Long updateMember(@RequestBody MemberDto member);
 }
