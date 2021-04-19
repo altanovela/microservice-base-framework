@@ -30,7 +30,7 @@ Dibuat dengan mempertimbangkan :
 ## Architecture Diagram
 ![](https://raw.githubusercontent.com/altanovela/microservice-baseframework/master/.res/architecture-diagram.jpg)
 
-## Package Structure
+## Project Structure
 
 | Application | Project Name | Port | Notes |
 | ------------ | ------------ | ------------ | ------------ |
@@ -39,7 +39,7 @@ Dibuat dengan mempertimbangkan :
 | Discovery Service (Eureka) | core-discovery | 8103 | Application Server, used as Service Colaborator |
 | Application : Member | app-member | 8001 | Application Server, Service Consumer |
 | Service : Member | service-member-api | | Embedded Library, Supporting Service Producer |
-| | service-member-impl | 60101 | Application Server, Service Producer |
+|| service-member-impl | 60101 | Application Server, Service Producer |
 | Library | lib-util | | Embedded Library, Common use Function |
 
 ## Pre Preparation
@@ -61,7 +61,7 @@ Client Secret : rahasia12345
 ## Build & Run
 ```
 1. Git Clone
-$ git clone http://gitlab.playcourt.id/riobastian/spring-cloud-architecture.git
+$ git clone https://github.com/altanovela/microservice-baseframework.git
 
 2. Compile Supported Library 
 $ cd ${PROJECT_BASE}/lib-util/
@@ -104,8 +104,10 @@ curl --location --request POST "http://localhost:8101/auth/member/register"
     \"password\": \"Password123\",
     \"image\": \"http://here.iam/rio.bastian.jpeg\"
 ```
-*Notes ```Authorzation Basic is generated as follows Base64Encoder.encode(client-id:client-secret)```
-
+*Notes 
+```
+Authorzation Basic is generated as follows Base64Encoder.encode(client-id:client-secret)
+```
 Response :
 ```
 {
@@ -119,6 +121,7 @@ Response :
   "phone":"082124334111"
 }
 ```
+
 #### Login and Get Token
 cUrl Request : 
 ```
@@ -134,7 +137,6 @@ curl --location --request POST "http://localhost:8101/oauth/token" \
 Authorzation Basic is generated as follows Base64Encoder.encode(client-id:client-secret)
 username attribute could be fill by username, email or phone number
 ```
-
 Response :
 ```
 {
@@ -146,6 +148,7 @@ Response :
   "iss":"finbox-sec"
 }
 ```
+
 #### Get Member Info (based on Token)
 cUrl Request :
 ```
@@ -163,6 +166,23 @@ Response :
     "image": "http://here.iam/rio.bastian.jpeg",
     "status": "ACTIVE",
     "phone": "082124334111"
+}
+```
+
+#### Update Member Info (based on Token)
+cUrl Request :
+```
+curl --location --request POST "http://localhost:8101/api/member/update" \
+--header "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJmaW5ib3gtc2VjIiwiZXhwIjoxNjE4NTgyMjcyLCJ1c2VyX25hbWUiOiJyaW8uYmFzdGlhbiIsImF1dGhvcml0aWVzIjpbIkJVWUVSIl0sImNsaWVudF9pZCI6Im1vYmlsZS1hcHBzIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.QvTsJVICMjp8hlwIgVQemPAv2Y56WWR2Lk6MYYiwGioLEszb3zbqXaZkpZJ4kfYQjNzuKzfwOVqwx55HqiL2dsHhIcFTrFwe273AJgid6G6ECPPZyB8dPkrnB6cuowDKCM6Z4DTt8TMrlPFIsub1Na9TyGPyYmMgM53oLm9D7mIPlzv6-LLZ8Oc_EVdSjhj-mzC13d_UtxlWzNB4yqX9WampsxBwmCztPqeZKeAgTdIAU2INhP8jUi8ilnxl_4ctcQ4T3KJGpX8lfbYOLIgVSPq_x2EtYBC3TODTrsrLiJGod8gc-1AIop7BC493u6-uDV4K2r3t_Cy_IggT60ARMA" \
+--header "Content-Type: application/json" \
+--data-raw "{
+    \"image\": \"http://here.iam/rio.bastian.2.jpeg\"
+}"
+```
+Response :
+```
+{
+    "msg":"Success Update Member"
 }
 ```
 
