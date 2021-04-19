@@ -169,6 +169,23 @@ Response :
 }
 ```
 
+#### Update Member Info (based on Token)
+cUrl Request :
+```
+curl --location --request POST "http://localhost:8101/api/member/update" \
+--header "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJmaW5ib3gtc2VjIiwiZXhwIjoxNjE4NTgyMjcyLCJ1c2VyX25hbWUiOiJyaW8uYmFzdGlhbiIsImF1dGhvcml0aWVzIjpbIkJVWUVSIl0sImNsaWVudF9pZCI6Im1vYmlsZS1hcHBzIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.QvTsJVICMjp8hlwIgVQemPAv2Y56WWR2Lk6MYYiwGioLEszb3zbqXaZkpZJ4kfYQjNzuKzfwOVqwx55HqiL2dsHhIcFTrFwe273AJgid6G6ECPPZyB8dPkrnB6cuowDKCM6Z4DTt8TMrlPFIsub1Na9TyGPyYmMgM53oLm9D7mIPlzv6-LLZ8Oc_EVdSjhj-mzC13d_UtxlWzNB4yqX9WampsxBwmCztPqeZKeAgTdIAU2INhP8jUi8ilnxl_4ctcQ4T3KJGpX8lfbYOLIgVSPq_x2EtYBC3TODTrsrLiJGod8gc-1AIop7BC493u6-uDV4K2r3t_Cy_IggT60ARMA" \
+--header "Content-Type: application/json" \
+--data-raw "{
+    \"image\": \"http://here.iam/rio.bastian.2.jpeg\"
+}"
+```
+Response :
+```
+{
+    "msg":"Success Update Member"
+}
+```
+
 ## Contributors
 | Name | Email | Role |
 | ------------ | ------------ | ------------ |
