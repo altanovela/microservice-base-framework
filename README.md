@@ -12,7 +12,7 @@ Dibuat dengan mempertimbangkan :
 - Stateless Application
 - Centralized Authentication Service
 - Easy to Scale Up
-- Support Complex Native Query
+- Support Intuitive/Complex Native Query
 - Support Cache (on progress, less priority, modular implementation depend on the service, centralized by using same Cache Provider.)
 - Support Multitenancy 
 - Support Basic Authorization for All Public Request (Non Login user)
